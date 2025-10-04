@@ -43,7 +43,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// mount routes
+// mount routes      
 app.use('/api/Students', StudentRoutes);
 app.use('/api/Teachers', TeacherRoutes);
 app.use('/api/Course', CourseRoutes);
