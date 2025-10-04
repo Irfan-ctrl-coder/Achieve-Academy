@@ -1,0 +1,100 @@
+.courses-hero{
+    background: #003366;
+    padding:60px 20px;
+}
+.courses-hero h1{
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.courses-hero p{
+    font-size: 1.2rem;
+    
+}
+
+.search-filter{
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.search-filter .form-control,
+.search-filter .form-select{
+border-radius: 6px;
+}
+
+
+/*  */
+.courses-hero h2 {
+  margin-top: 40px;   /* pushes "Our Courses" down */
+  color: white;       /* keeps text white */
+}
+
+
+/* Course Cards */
+.popular-courses {
+  background: #dee2e6; /* medium light gray */
+  border-radius: 8px;
+  padding: 20px;
+}
+
+
+
+/* succes  */
+/* Success Stories Section */
+.success-stories h2 {
+  color: #fff; /* heading white on dark bg */
+  margin-bottom: 2rem;
+}
+
+.success-stories .card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  background-color: #fff;
+  color: #000; /* force readable text */
+}
+
+.success-stories .card p {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+  color: #333; /* softer black for text */
+}
+
+.success-stories img {
+  object-fit: cover;
+  border: 2px solid #ddd;
+}
+
+.success-stories h6 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.success-stories small {
+  color: #555;
+}
+
+/* Highlights */
+.success-stories .bi {
+  color: #0d6efd; /* bootstrap blue */
+}
+
+.success-stories h6 {
+  margin-top: 0.5rem;
+}
+
+.success-stories p.small {
+  font-size: 0.85rem;
+  margin-bottom: 0;
+}
+
+
+.cta-box, .cta-full {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.cta-box:hover, .cta-full:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}

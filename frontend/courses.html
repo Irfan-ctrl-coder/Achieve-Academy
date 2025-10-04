@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="courses.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container-fluid d-flex align-items-center justify-content-between">
+      <a href="#" class="navbar-brand">
+        <img src="images/Gemini_Generated_Image_h09ei2h09ei2h09e[1].png" alt="Brand Logo">
+      </a>
+      <div class="d-none d-lg-flex mx-auto">
+        <ul class="navbar-nav flex-row">
+          <li class="nav-item"><a class="nav-link text-black px-3" href="#">Courses</a></li>
+          <li class="nav-item"><a class="nav-link text-black px-3" href="#">Admissions</a></li>
+          <li class="nav-item"><a class="nav-link text-black px-3" href="#">Results</a></li>
+          <li class="nav-item"><a class="nav-link text-black px-3" href="#">About Us</a></li>
+          <li class="nav-item"><a class="nav-link text-black px-3" href="#">Contact Us</a></li>
+        </ul>
+      </div>
+      <button type="button" class="btn btn-success">Login/Signup</button>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="courses-hero text-center text-white">
+      <div class="container">
+        <h1 class="fw-bold">Explore Our Courses</h1>
+        <p>Choose the right path for your Success</p>
+
+        <!-- Search + Filter -->
+        <div class="search-filter d-flex justify-content-center mt-4">
+          <input type="text" class="form-control me-2" placeholder="Search courses...">
+          <select class="form-select">
+            <option>ALL Categories</option>
+            <option>Engineering</option>
+            <option>Medical</option>
+            <option>Foundation</option>
+          </select>
+        </div>
+
+        <!-- Courses -->
+        <h2 class="text-center mb-5">Our Courses</h2>
+        <div class="row" id="coursesContainer">
+          <!-- Courses will load here -->
+        </div>
+
+        <!-- Popular Courses -->
+        <h2 class="text-center mt-5 mb-4">Our Most Popular Courses</h2>
+        <div class="row justify-content-center" id="popularCoursesContainer">
+          <!-- Popular courses will load here -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer bg-dark text-white pt-5">
+    <div class="container">
+      <div class="row">
+        <!-- Column 1 -->
+        <div class="col-md-3 mb-4">
+          <h6 class="fw-bold">About Us</h6>
+          <p class="small text-muted">
+            Empowering students to achieve their dreams with quality education.
+          </p>
+        </div>
+        <!-- Column 2 -->
+        <div class="col-md-2 mb-4">
+          <h6 class="fw-bold">Quick Links</h6>
+          <ul class="list-unstyled">
+            <li><a href="#" class="text-white text-decoration-none">Courses</a></li>
+            <li><a href="#" class="text-white text-decoration-none">Admissions</a></li>
+            <li><a href="#" class="text-white text-decoration-none">Results</a></li>
+            <li><a href="#" class="text-white text-decoration-none">Contact</a></li>
+          </ul>
+        </div>
+        <!-- Column 3 -->
+        <div class="col-md-3 mb-4">
+          <h6 class="fw-bold">Contact Us</h6>
+          <p class="small"><i class="bi bi-geo-alt-fill me-2"></i>123 Main Street, City</p>
+          <p class="small"><i class="bi bi-telephone-fill me-2"></i>+91 98765 43210</p>
+          <p class="small"><i class="bi bi-envelope-fill me-2"></i>info@institute.com</p>
+        </div>
+        <!-- Column 4 -->
+        <div class="col-md-4 mb-4">
+          <h6 class="fw-bold">Subscribe to our Newsletter</h6>
+          <form class="d-flex mt-3 flex-column flex-sm-row">
+            <input type="email" class="form-control me-sm-2 mb-2 mb-sm-0" placeholder="Enter your email">
+            <button type="submit" class="btn btn-success">Subscribe</button>
+          </form>
+          <p class="small mt-2 text-muted">Get the latest updates and news delivered straight to your inbox.</p>
+        </div>
+      </div>
+      <!-- Social Row -->
+      <div class="row mt-4">
+        <div class="col text-center">
+          <a href="#" class="text-white me-3"><i class="bi bi-facebook"></i></a>
+          <a href="#" class="text-white me-3"><i class="bi bi-instagram"></i></a>
+          <a href="#" class="text-white me-3"><i class="bi bi-linkedin"></i></a>
+          <a href="#" class="text-white"><i class="bi bi-twitter-x"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="text-center py-3" style="background-color: #111;">
+      <p class="mb-0 small text-muted">&copy; 2025 Your Institute. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <!-- JS Fetch Logic -->
+  <script>
+    async function loadCourses() {
+      try {
+        const res = await fetch("http://localhost:3000/api/Course");
+        const courses = await res.json();
+
+        const coursesContainer = document.getElementById("coursesContainer");
+        const popularContainer = document.getElementById("popularCoursesContainer");
+
+        coursesContainer.innerHTML = "";
+        popularContainer.innerHTML = "";
+
+        courses.forEach((course, index) => {
+          const courseCard = `
+            <div class="col-12 col-md-6 col-lg-3 mb-4">
+              <div class="card h-100 text-center p-3 course-card">
+                <i class="bi bi-book display-4 mb-3"></i>
+                <h5 class="fw-bold">${course.title}</h5>
+                <p>${course.description}</p>
+                <a href="#" class="btn btn-success">Learn More</a>
+              </div>
+            </div>`;
+          coursesContainer.innerHTML += courseCard;
+
+          // Make first 3 appear in "Popular"
+          if (index < 3) {
+            const popularCard = `
+              <div class="col-12 col-md-6 col-lg-4 mb-4">
+                <div class="card h-100 text-center p-3 course-card">
+                  <i class="bi bi-star display-4 mb-3"></i>
+                  <h5 class="fw-bold">${course.title}</h5>
+                  <p>${course.description}</p>
+                  <a href="#" class="btn btn-success">View Details</a>
+                </div>
+              </div>`;
+            popularContainer.innerHTML += popularCard;
+          }
+        });
+      } catch (err) {
+        console.error("Error loading courses:", err);
+      }
+    }
+    loadCourses();
+  </script>
+</body>
+</html>
