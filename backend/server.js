@@ -49,6 +49,10 @@ app.use('/api/Teachers',TeacherRoutes)
 app.use('/api/Course',CourseRoutes)
 app.use('/api/Users',UserRoutes)
 
+app.get("/", (req, res) => {
+  res.send("Backend is running successfully on Render 🚀");
+});
+
 mongoose.connect(process.env.MONGO_URI)
 .then(()=> {
     console.log("connected to database");
