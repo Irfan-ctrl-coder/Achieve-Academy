@@ -1,161 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sign Up</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
-  <style>
-  body {
-    background: #fff;
-    font-family: Arial, sans-serif;
-  }
-  .card {
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    box-shadow: none;
-    width: 350px;
-    margin-top: -50px;
-  }
-  h2 {
-    font-size: 24px;
-    font-weight: 500;
-    margin-bottom: 15px;
-    text-align: left;
-    color: #111;
-  }
-  .form-label {
-    font-size: 14px;
-    font-weight: 600;
-    margin-bottom: 4px;
-    color: #111;
-  }
-  .form-control {
-    border-radius: 3px;
-    padding: 8px;
-    font-size: 14px;
-    border: 1px solid #a6a6a6;
-  }
-  .form-control:focus {
-    border-color: #0073e6;     /* Blue border */
-    box-shadow: 0 0 3px #0073e6;
-  }
-  .btn-primary {
-    background: #0073e6;       /* Blue button */
-    border: 1px solid #005bb5;
-    border-radius: 3px;
-    font-size: 14px;
-    font-weight: 500;
-    color: #fff;
-    padding: 8px;
-  }
-  .btn-primary:hover {
-    background: #005bb5;       /* Darker blue hover */
-    border-color: #004c99;
-    transform: none;
-    box-shadow: none;
-  }
-  .toggle-password {
-    cursor: pointer;
-    position: absolute;
-    right: 10px;
-    top: 65%;
-    transform: translateY(-50%);
-    color: #555;
-  }
-  .toggle-password:hover {
-    color: #111;
-  }
-  p {
-    font-size: 13px;
-    margin-top: 20px;
-    text-align: center;
-    color: #111;
-  }
-  a {
-    color: #0066c0;
-    text-decoration: none;
-  }
-  a:hover {
-    text-decoration: underline;
-    color: #004080;
-  }
-</style>
-</head>
-<body class="d-flex justify-content-center align-items-center vh-100">
+<script>
+  // Show/Hide Password
+  const togglePassword = document.getElementById("togglePassword");
+  const passwordInput = document.getElementById("password");
+  togglePassword.addEventListener("click", () => {
+    const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+    passwordInput.setAttribute("type", type);
+    togglePassword.classList.toggle("bi-eye");
+    togglePassword.classList.toggle("bi-eye-slash");
+  });
 
-  <div class="card shadow-lg p-4" style="width: 400px;">
-    <h2 class="text-center mb-4">Create Account</h2>
-    
-    <!-- Signup Form -->
-    <form id="signupForm">
-      <div class="mb-3">
-        <label class="form-label fw-semibold">Full Name</label>
-        <input type="text" class="form-control" id="name" placeholder="Enter your full name" required>
-      </div>
+  // Form Submit
+  document.getElementById("signupForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
 
-      <div class="mb-3">
-        <label class="form-label fw-semibold">Email</label>
-        <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
-      </div>
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
 
-      <div class="mb-3 position-relative">
-        <label class="form-label fw-semibold">Password</label>
-        <input type="password" class="form-control" id="password" placeholder="Create a password" required>
-        <i class="bi bi-eye-slash toggle-password" id="togglePassword"></i>
-      </div>
+    try {
+      const res = await fetch("https://achieve-academy-5pjc.onrender.com/api/Users/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ name, email, password })
+      });
 
-      <button type="submit" class="btn btn-primary w-100">Sign Up</button>
-    </form>
+      const data = await res.json();
 
-    <p class="text-center mt-3">
-      Already have an account? <a href="login.html">Login</a>
-    </p>
-  </div>
-
-  <script>
-    // Show/Hide Password
-    const togglePassword = document.getElementById("togglePassword");
-    const passwordInput = document.getElementById("password");
-    togglePassword.addEventListener("click", () => {
-      const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
-      passwordInput.setAttribute("type", type);
-      togglePassword.classList.toggle("bi-eye");
-      togglePassword.classList.toggle("bi-eye-slash");
-    });
-
-    // Form Submit
-    document.getElementById("signupForm").addEventListener("submit", async function (e) {
-      e.preventDefault();
-
-      const name = document.getElementById("name").value;
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
-
-      try {
-        const res = await fetch("http://localhost:3000/api/Users/register", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ name, email, password })
-        });
-
-        const data = await res.json();
-
-        if (res.ok) {
-          alert("Signup successful! Please login.");
-          window.location.href = "login.html"; 
-        } else {
-          alert(data.message || "Signup failed.");
-        }
-      } catch (error) {
-        console.error("Error:", error);
-        alert("Something went wrong!");
+      if (res.ok) {
+        alert("Signup successful! Please login.");
+        window.location.href = "login.html"; 
+      } else {
+        alert(data.message || "Signup failed.");
       }
-    });
-  </script>
-
-</body>
-</html>
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Something went wrong!");
+    }
+  });
+</script>
